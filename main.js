@@ -11,7 +11,7 @@
  update cache
 
 // todo 
-// 1. push msg
+// 1. push msg (done)
 // 2. get price info
 // 3. do schedule process
 // 4. date logic
@@ -21,6 +21,12 @@
 var price;
 var days; //store date related 
 var stockCode;
+
+var pushurl= 'https://api.pushover.net/1/messages.json';
+var p_token;
+var p_user;
+
+var request = require('request');
 
 function initData(cost){
 	price{stopLoss} = cost * 0.85;
@@ -38,8 +44,14 @@ function initData(cost){
 // push notification
 function pushMsg(msg){
 	msg = stockCode + ":" + msg;
-	
+	request.post(pushurl, {form:{"token": p_token,
+                 "user": p_user,
+                 "message": msg
+				 }});
 }
+
+
+
 
 // get Stock info from google finance 
 function getStockPrice(stockNo){
